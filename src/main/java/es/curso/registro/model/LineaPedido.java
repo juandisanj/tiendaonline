@@ -1,5 +1,6 @@
 package es.curso.registro.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,9 +26,10 @@ public class LineaPedido {
 	@JoinColumn(name="linea_pedido", nullable = false)
 	private Producto producto;
 	
-	@Column(name)
+	@Column(name="cantidad")
 	private int cantidad;
 	
+	@Column(name="precio_linea")
 	private double precioLinea;
 
 	public LineaPedido() {
