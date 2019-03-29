@@ -27,14 +27,14 @@ public class Pedido {
 	private double precioFinal;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id", nullable = false)
+	@JoinColumn(name="id", nullable = false, insertable = false, updatable = false)
 	private User user;
 	
 	@OneToMany(mappedBy="pedido", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<LineaPedido> listaLineas;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pedido", nullable = false)
+	@JoinColumn(name="id_status", nullable = false)
 	private Status status;
 	
 	@Column(name="direccion")
