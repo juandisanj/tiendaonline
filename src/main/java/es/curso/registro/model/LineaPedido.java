@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="lineapedido")
+@Table(name="lineapedidos")
 public class LineaPedido {
 	
 	@Id
@@ -23,23 +23,23 @@ public class LineaPedido {
 	private Pedido pedido;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="linea_pedido", nullable = false)
+	@JoinColumn(name="id_producto", nullable = false)
 	private Producto producto;
 	
 	@Column(name="cantidad")
 	private int cantidad;
 	
 	@Column(name="precio_linea")
-	private double precioLinea;
+	private Double precioLinea;
 
 	public LineaPedido() {
 	}
 
-	public LineaPedido(Pedido pedido, Producto producto, int cantidad, double precioLinea) {
+	public LineaPedido(Pedido pedido, Producto producto, int cantidad) {
 		this.pedido = pedido;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		this.precioLinea = precioLinea;
+		this.precioLinea = calcularImporteLinea();
 	}
 	
 	public int getIdLineaPedido() {
@@ -74,12 +74,17 @@ public class LineaPedido {
 		this.cantidad = cantidad;
 	}
 
-	public double getPrecioLinea() {
+	public Double getPrecioLinea() {
 		return precioLinea;
 	}
 
 	public void setPrecioLinea(double precioLinea) {
 		this.precioLinea = precioLinea;
+	}
+	
+	public Double calcularImporteLinea() {
+		
+		return cantidad * producto.getPrecio();
 	}
 
 }

@@ -12,19 +12,46 @@
 <title>Registro y administracion de usuarios</title>
 </head>
 <body>
-    <div th:replace="/header :: header"></div>
+	<div th:replace="/header :: header"></div>
 
 	<br>
 
 	<br>
 	<div class="container">
-		<h2>Registro de usuarios usando spring - boot </h2>
+		<h2>Registro de usuarios usando spring - boot</h2>
 		<p>
 			Bienvenido <span sec:authentication="principal.username">Usuario</span>
 		</p>
+
+
+		<div th:if="${#lists.isEmpty(listaPedidos)}" class="alert alert-info my-4" th:text="'No hay pedidos para el usuario'"></div>
+
+		<table th:if="${not #lists.isEmpty(listaPedidos)}" class="table table-bordered table-striped my-4">
+			<thead class="thead-inverse">
+				<tr>
+					<th>id pedido</th>
+					<th>Dirección de envío</th>
+					<th>Status</th>
+					<th>Comentario</th>
+					<th>Importe</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="pedido : ${listaPedidos}">
+					<td th:text="${pedido.idPedido}"></td>
+					<td th:text="${pedido.direccion}"></td>
+					<td th:text="${pedido.status.nombre}"></td>
+					<td th:text="${pedido.comentario}"></td>
+					<td th:text="${pedido.total}"></td>
+				</tr>	
+			</tbody>
+		</table>
+
+
+
 	</div>
 
-	
+<footer th:replace="/footer :: footer"></footer>
 
 </body>
 </html>

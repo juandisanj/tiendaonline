@@ -5,10 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import es.curso.registro.model.Role;
 import es.curso.registro.model.User;
+import es.curso.registro.service.PedidoService;
 import es.curso.registro.service.UserService;
 import es.curso.registro.util.Constantes;
 
@@ -17,9 +17,13 @@ public class MainController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	private PedidoService pedidoService;
 	
     @GetMapping("/")
-    public String root() {
+    public String root(Model model) {
+    	
+    	model.addAttribute("listaPedidos", pedidoService.getAll());
         return "index";
     }
 

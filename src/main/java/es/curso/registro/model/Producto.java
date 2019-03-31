@@ -10,13 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="productos")
 public class Producto {
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column (name="id_usuario")
-	private Integer idUsuario;
+	@Column (name="id_producto")
+	private Integer idProducto;
 	
 	@Column (name="nombre")
 	private String nombre;
@@ -30,7 +32,7 @@ public class Producto {
 	@Column (name="precio")
 	private Double precio;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="producto")
+	@OneToMany(mappedBy="producto", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<LineaPedido> lineaPedido;
 	
 	public Producto() {
@@ -46,12 +48,12 @@ public class Producto {
 		this.lineaPedido = lineaPedido;
 	}
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Integer getIdProducto() {
+		return idProducto;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setIdProducto(Integer idProducto) {
+		this.idProducto = idProducto;
 	}
 
 	public String getNombre() {

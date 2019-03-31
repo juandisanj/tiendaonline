@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="pedido")
+@Table(name="pedidos")
 public class Pedido {
 	
 	@Id
@@ -110,6 +110,14 @@ public class Pedido {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	
+	public Double getTotal() {
+		Double total = 0.0;
+		for(LineaPedido l : listaLineas) {
+			total += l.calcularImporteLinea();
+		}
+		return total;
 	}
 
 }
