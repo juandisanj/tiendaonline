@@ -39,7 +39,7 @@ public class LineaPedido {
 		this.pedido = pedido;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		this.precioLinea = calcularImporteLinea();
+		this.precioLinea = getImporteLinea();
 	}
 	
 	public int getIdLineaPedido() {
@@ -82,7 +82,7 @@ public class LineaPedido {
 		this.precioLinea = precioLinea;
 	}
 	
-	public Double calcularImporteLinea() {
+	public Double getImporteLinea() {
 		
 		return cantidad * producto.getPrecio();
 	}

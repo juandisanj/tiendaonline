@@ -33,6 +33,7 @@
 						<th>Nombre</th>
 						<th>Apellido</th>
 						<th>Email</th>
+						<th>Pedidos</th>
 						<th>Acciones</th>
 
 					</tr>
@@ -44,6 +45,7 @@
 						<td th:text="${user.nombre}"></td>
 						<td th:text="${user.apellido}"></td>
 						<td th:text="${user.email}"></td>
+						<td><a class="button btn-primary btn-xs" th:href="@{'/pedido/form/' + ${user.email}}" th:text="'Nuevo pedido'"></a></td>
 						<td>
 							<form action="#"
 								th:action="@{/admin/quitarPrivilegios/} + ${{user.id}}"

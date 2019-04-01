@@ -7,5 +7,5 @@ import es.curso.registro.model.Pedido;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
-
+	
 }

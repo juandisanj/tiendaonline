@@ -15,18 +15,22 @@
 	<div th:replace="/header :: header"></div>
 
 	<br>
+	
+	<br>
+	
+	<br>
 
 	<br>
 
 	<div class="container">
 
-		<form th:action="@{/pedido/form}" th:object="${pedido}" method="post">
+		<form th:action="@{/pedido/form}" th:object="${listaCarrito}" method="post">
 
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" th:text="'Usuario'"></label>
 				<div class="col-sm-6">
 					<input
-						th:value="${pedido.user.nombre} + ' ' + ${pedido.user.apellido}"
+						th:value="${listaCarrito.user.nombre} + ' ' + ${listaCarrito.user.apellido}"
 						class="form-control" disabled='disabled' />
 				</div>
 			</div>

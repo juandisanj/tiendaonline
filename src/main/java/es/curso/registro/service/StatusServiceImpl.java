@@ -3,11 +3,14 @@ package es.curso.registro.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.curso.registro.model.Status;
 import es.curso.registro.repository.StatusRepository;
 
+@Service	
 public class StatusServiceImpl implements StatusService {
+	
 	@Autowired
 	StatusRepository statusRepository;
 	

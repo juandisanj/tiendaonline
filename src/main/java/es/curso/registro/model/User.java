@@ -109,7 +109,15 @@ public class User {
         this.roles = roles;
     }
 
-    @Override
+    public List<Pedido> getListaPedido() {
+		return listaPedido;
+	}
+
+	public void setListaPedido(List<Pedido> listaPedido) {
+		this.listaPedido = listaPedido;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "id=" + id +

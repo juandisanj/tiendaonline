@@ -9,40 +9,43 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-<title>Producto</title>
+<title>Línea producto</title>
 </head>
 <body>
 	<div th:replace="/header :: header"></div>
 
 	<br>
-
 	<br>
-	
+
 	<br>
 
 	<br>
 
 	<div class="container">
 
-		<form th:action="@{/product/add}" th:object="${producto}"
+		<form th:action="@{/lineaPedido/addLineaCarrito}" th:object="${lineaPedido}"
 			method="post">
-			<input type="hidden" th:field="*{idProducto}" />
+			
+			<input type="hidden" th:field="*{producto.idProducto}" />
+			
+			<input type="hidden" th:field="*{idLineaPedido}" />
+			
 			<div class="form-group">
 				<label class="control-label" th:for="nombre">Nombre</label> <input
-					class="form-control" th:field="*{nombre}" type="text" />
+					class="form-control" th:field="*{producto.nombre}" type="text" />
 			</div>
 			<div class="form-group">
-				<label class="control-label" th:for="descripcion">Descripción</label> <input
-					class="form-control" th:field="*{descripcion}" type="text" step="1" />
+				<label class="control-label" th:for="descripcion">Descripción</label>
+				<input class="form-control" th:field="*{producto.descripcion}" type="text"
+					step="1" />
 			</div>
 			<div class="form-group">
-				<label class="control-label" th:for="marca">Marca</label> <input
-					class="form-control" th:field="*{marca}" type="text" step="1"
-					min="0" />
+				<label class="control-label" th:for="cantidad">Cantidad</label>
+				<input type="number" step="1" class="form-control" th:field="*{cantidad}" min="1" value="1" />
 			</div>
 			<div class="form-group">
 				<label class="control-label" th:for="precio">Precio</label> <input
-					class="form-control" th:field="*{precio}" type="number" step="1"
+					class="form-control" th:field="*{producto.precio}" type="number" step="1"
 					min="0" />
 			</div>
 			<div class="form-group submit-cancel">

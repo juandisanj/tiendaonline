@@ -1,5 +1,6 @@
 package es.curso.registro.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,7 +35,7 @@ public class Pedido {
 	private List<LineaPedido> listaLineas;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_status", nullable = false)
+	@JoinColumn(name="id_status")
 	private Status status;
 	
 	@Column(name="direccion")
@@ -44,6 +45,7 @@ public class Pedido {
 	private String comentario;
 
 	public Pedido() {
+		this.listaLineas = new ArrayList<LineaPedido>();
 	}
 
 	public Pedido(double precioFinal, User user, List<LineaPedido> listaLineas, Status status, String direccion,
@@ -112,10 +114,14 @@ public class Pedido {
 		this.comentario = comentario;
 	}
 	
+	public void addLineaPedido(LineaPedido lineaPedido){
+		this.listaLineas.add(lineaPedido);
+	}
+	
 	public Double getTotal() {
 		Double total = 0.0;
 		for(LineaPedido l : listaLineas) {
-			total += l.calcularImporteLinea();
+			total += l.getImporteLinea();
 		}
 		return total;
 	}
