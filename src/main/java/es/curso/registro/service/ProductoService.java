@@ -14,4 +14,12 @@ public interface ProductoService {
 	void delete(int id);
 	
 	void update(Producto producto);
+	
+	List<Producto> findByNombre(String nombre);
+	
+	List<Producto> findByDescripcion(String descripcion);
+	
+	List<Producto> findByPrecio(Double precio);
+	
+	public List<Producto> findByFiltro (String nombre, String descripcion, Double precio);
 }

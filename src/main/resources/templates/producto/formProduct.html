@@ -17,12 +17,14 @@
 	<br>
 
 	<br>
-	
+
 	<br>
 
 	<br>
 
 	<div class="container">
+
+		<h2>Nuevo Producto</h2>
 
 		<form th:action="@{/product/add}" th:object="${producto}"
 			method="post">
@@ -32,8 +34,9 @@
 					class="form-control" th:field="*{nombre}" type="text" />
 			</div>
 			<div class="form-group">
-				<label class="control-label" th:for="descripcion">Descripción</label> <input
-					class="form-control" th:field="*{descripcion}" type="text" step="1" />
+				<label class="control-label" th:for="descripcion">Descripción</label>
+				<input class="form-control" th:field="*{descripcion}" type="text"
+					step="1" />
 			</div>
 			<div class="form-group">
 				<label class="control-label" th:for="marca">Marca</label> <input
@@ -42,12 +45,12 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label" th:for="precio">Precio</label> <input
-					class="form-control" th:field="*{precio}" type="number" step="1"
+					class="form-control" th:field="*{precio}" type="number" step="0.01"
 					min="0" />
 			</div>
 			<div class="form-group submit-cancel">
-				<input class="btn btn-primary" type="submit" value="Guardar cambios" />
-				<a class="btn btn-default btn-cancel" th:href="@{/product/index}">Cancelar</a>
+				<input class="btn btn-primary" type="submit" value="Guardar Producto" />
+				<a class="btn btn-primary btn-cancel" th:href="@{/product/index}">Cancelar</a>
 			</div>
 		</form>
 

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -35,8 +36,25 @@ public class ProductController {
 	public String indexProduct(Model model) {
 		
 		List<LineaPedido> listaCarrito = new ArrayList<>();
+		model.addAttribute("productoFiltro", new Producto());
+
 		
 		model.addAttribute("productos", productoService.getAll());
+		return "producto/indexProductos";
+	}
+	
+	@PostMapping("/index")	
+	public String filtroProduct(Model model, @ModelAttribute("productoFiltro") 
+	Producto productoFiltro) {
+		if(productoFiltro==null) {
+			model.addAttribute("productos", productoService.getAll());
+		}
+		else if(productoFiltro.getNombre()!=null || productoFiltro.getDescripcion()!=null || 
+				productoFiltro.getPrecio()!=null){
+			model.addAttribute("productos", 
+					productoService.findByFiltro(productoFiltro.getNombre(), 
+							productoFiltro.getDescripcion(), productoFiltro.getPrecio()));
+		}
 		return "producto/indexProductos";
 	}
 	

@@ -38,4 +38,24 @@ public class ProductoServiceImpl implements ProductoService {
 	public void update(Producto producto) {
 		productoRepository.save(producto);
 	}
+
+	@Override
+	public List<Producto> findByNombre(String nombre) {
+		return productoRepository.findByNombre(nombre);
+	}
+
+	@Override
+	public List<Producto> findByDescripcion(String descripcion) {
+		return productoRepository.findByDescripcion(descripcion);
+	}
+
+	@Override
+	public List<Producto> findByPrecio(Double precio) {
+		return productoRepository.findByPrecio(precio);
+	}
+
+	@Override
+	public List<Producto> findByFiltro(String nombre, String descripcion, Double precio) {
+		return productoRepository.findByFiltro(nombre, descripcion, precio);
+	}
 }
