@@ -2,6 +2,8 @@ package es.curso.registro.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class LineaPedidoServiceImpl implements LineaPedidoService {
 		return lineaPedidoRepository.findById(idLineaPedido).get();
 	}
 
+	@Transactional
 	@Override
 	public void create(LineaPedido lineaPedido) {
 

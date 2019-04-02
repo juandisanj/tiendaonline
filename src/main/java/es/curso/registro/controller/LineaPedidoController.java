@@ -35,12 +35,13 @@ public class LineaPedidoController {
 	@PostMapping("/addLineaCarrito")
 	public String addLinea(LineaPedido lineaPedido, @SessionAttribute(name="listaCarrito") List<LineaPedido> listaCarrito) {
 		
+		lineaPedido.getImporteLinea();
+		System.out.println("Precio línea: " + lineaPedido.getPrecioLinea());
 		listaCarrito.add(lineaPedido);
 		
 		for(LineaPedido l : listaCarrito) {
 			System.out.println("Producto " + l.getProducto().getNombre());
 		}
-		
 		
 		return "redirect:/product/index";
 	}

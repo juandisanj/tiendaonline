@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class Pedido {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_pedido")
 	private int idPedido;
 	
@@ -28,10 +28,11 @@ public class Pedido {
 	private double precioFinal;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name="id")
 	private User user;
 	
-	@OneToMany(mappedBy="pedido", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="id_pedido")
 	private List<LineaPedido> listaLineas;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -123,6 +124,9 @@ public class Pedido {
 		for(LineaPedido l : listaLineas) {
 			total += l.getImporteLinea();
 		}
+		
+		this.precioFinal = total;
+		
 		return total;
 	}
 

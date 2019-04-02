@@ -15,15 +15,12 @@ import javax.persistence.Table;
 public class LineaPedido {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id_lineapedido")
 	private int idLineaPedido;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_pedido", nullable = false)
-	private Pedido pedido;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_producto", nullable = false)
+	@JoinColumn(name="id_producto")
 	private Producto producto;
 	
 	@Column(name="cantidad")
@@ -35,8 +32,7 @@ public class LineaPedido {
 	public LineaPedido() {
 	}
 
-	public LineaPedido(Pedido pedido, Producto producto, int cantidad) {
-		this.pedido = pedido;
+	public LineaPedido(Producto producto, int cantidad) {
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.precioLinea = getImporteLinea();
@@ -48,14 +44,6 @@ public class LineaPedido {
 
 	public void setIdLineaPedido(int idLineaPedido) {
 		this.idLineaPedido = idLineaPedido;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 	public Producto getProducto() {
@@ -84,7 +72,8 @@ public class LineaPedido {
 	
 	public Double getImporteLinea() {
 		
-		return cantidad * producto.getPrecio();
+		this.precioLinea = cantidad * producto.getPrecio();
+		return precioLinea;
 	}
 
 }

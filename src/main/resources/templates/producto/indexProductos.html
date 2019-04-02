@@ -40,11 +40,11 @@
 		<table class="table table-striped table-bordered" id="productos">
 			<thead>
 				<tr>
-					<th scope="col">Nombre</th>
-					<th scope="col">Descripción</th>
-					<th scope="col">Marca</th>
-					<th scope="col">Precio</th>
-					<th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
+					<th scope="col" class="text-center">Nombre</th>
+					<th scope="col" class="text-center">Descripción</th>
+					<th scope="col" class="text-center">Marca</th>
+					<th scope="col" class="text-center">Precio</th>
+					<th scope="col" class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,9 +67,9 @@
 					<td class="text-rigth"><a
 						th:href="@{'/lineaPedido/addLinea?idProducto=' + ${producto.idProducto}}">Añadir
 							a carrito</a></td>
-					<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+					<td sec:authorize="hasRole('ROLE_ADMIN')" class="inline-editable"><a
 						th:href="@{'/product/update?idProducto=' + ${producto.idProducto}}">Editar</a></td>
-					<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+					<td sec:authorize="hasRole('ROLE_ADMIN')" class="inline-editable"><a
 						th:href="@{'/product/delete?idProducto=' + ${producto.idProducto}}">Borrar</a></td>
 				</tr>
 			</tbody>
@@ -78,9 +78,9 @@
 		</table>
 
 		<a sec:authorize="hasRole('ROLE_ADMIN')" href="/product/add"
-			class="button btn-primary">Nuevo producto</a>
+			class="btn btn-primary">Nuevo producto</a>
 		
-		<a href="/pedido/detail" class="button btn-primary">Ir a carrito</a>
+		<a href="/pedido/detail" class="btn btn-primary">Ir a carrito</a>
 
 		
 

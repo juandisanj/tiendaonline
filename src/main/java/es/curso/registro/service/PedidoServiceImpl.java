@@ -2,10 +2,13 @@ package es.curso.registro.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.curso.registro.model.Pedido;
+import es.curso.registro.model.Status;
 import es.curso.registro.repository.PedidoRepository;
 
 @Service
@@ -19,6 +22,12 @@ public class PedidoServiceImpl implements PedidoService {
 		
 		return pedidoRepository.findAll();
 	}
+	
+	@Override
+	public List<Pedido> getByStatus(Status status) {
+		
+		return pedidoRepository.findByStatus(status);
+	}
 
 	@Override
 	public Pedido getById(int idPedido) {
@@ -26,6 +35,7 @@ public class PedidoServiceImpl implements PedidoService {
 		return pedidoRepository.findById(idPedido).get();
 	}
 
+	@Transactional
 	@Override
 	public void create(Pedido pedido) {
 		
