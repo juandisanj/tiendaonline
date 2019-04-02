@@ -29,7 +29,7 @@ public class User {
     private String email;
     private String password;
     
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Pedido> listaPedido;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

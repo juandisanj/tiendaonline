@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name="productos")
 public class Producto {
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name="id_producto")
 	private Integer idProducto;
 	
@@ -32,7 +32,7 @@ public class Producto {
 	@Column (name="precio")
 	private Double precio;
 	
-	@OneToMany(mappedBy="producto", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="producto", fetch=FetchType.LAZY)
 	private List<LineaPedido> lineaPedido;
 	
 	public Producto() {

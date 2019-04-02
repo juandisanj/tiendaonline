@@ -41,11 +41,11 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label" th:for="cantidad">Cantidad</label>
-				<input type="number" step="1" class="form-control" th:field="*{cantidad}" min="1" value="1" />
+				<input type="number" step="1" class="form-control" th:field="*{cantidad}"  value="1" th:value ="1"/>
 			</div>
 			<div class="form-group">
 				<label class="control-label" th:for="precio">Precio</label> <input
-					class="form-control" th:field="*{producto.precio}" type="number" step="1"
+					class="form-control" th:field="*{producto.precio}" type="number" step="0.01"
 					min="0" />
 			</div>
 			<div class="form-group submit-cancel">

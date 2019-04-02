@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-<title>Registro y administracion de usuarios</title>
+<title>Listado de pedidos</title>
 </head>
 <body>
 	<div th:replace="/header :: header"></div>
@@ -18,22 +18,41 @@
 
 	<br>
 	<div class="container">
-		<h2>Registro de usuarios usando spring - boot</h2>
+		<h2>Listado de pedidos</h2>
+
+		<form class="form-inline" th:action="@{/}" th:object="${pedidoForm}" method="post">
+			<div class="form-group">
+				<label class="control-label" th:for="status">Estado</label>
+				<select class="form-control" th:field="*{status}" name="status">
+					<option th:each="Status : ${listStatus}"
+						th:value="${Status.idStatus}" th:text="${Status.nombre}" />
+				</select>
+			</div>
+			<div class="form-group submit-cancel">
+				<input class="btn btn-primary" type="submit" value="Buscar" />
+			</div>
+		</form>
+
 		<p>
 			Bienvenido <span sec:authentication="principal.username">Usuario</span>
 		</p>
 
 
-		<div th:if="${#lists.isEmpty(listaPedidos)}" class="alert alert-info my-4" th:text="'No hay pedidos para el usuario'"></div>
+		<div th:if="${#lists.isEmpty(listaPedidos)}"
+			class="alert alert-info my-4"
+			th:text="'No hay pedidos para el usuario'"></div>
 
-		<table th:if="${not #lists.isEmpty(listaPedidos)}" class="table table-bordered table-striped my-4">
+		<table th:if="${not #lists.isEmpty(listaPedidos)}"
+			class="table table-bordered table-striped my-4">
 			<thead class="thead-inverse">
 				<tr>
-					<th>id pedido</th>
-					<th>Dirección de envío</th>
-					<th>Status</th>
-					<th>Comentario</th>
-					<th>Importe</th>
+					<th class="text-center" scope="col">id pedido</th>
+					<th class="text-center" scope="col">Dirección de envío</th>
+					<th class="text-center" scope="col">Status</th>
+					<th class="text-center" scope="col">Comentario</th>
+					<th class="text-center" scope="col">Importe</th>
+					<th class="text-center" scope="col"
+						sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,15 +62,21 @@
 					<td th:text="${pedido.status.nombre}"></td>
 					<td th:text="${pedido.comentario}"></td>
 					<td th:text="${pedido.total}"></td>
-				</tr>	
+					<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{'/pedido/update?idPedido=' + ${pedido.idPedido}}">Editar</a></td>
+					<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{'/pedido/delete?idPedido=' + ${pedido.idPedido}}">Borrar</a></td>
+				</tr>
 			</tbody>
 		</table>
 
-<!-- <a class="button btn-primary btn-xs" th:href="@{'/pedido/form/' + ${#authentication.name}}" th:text="'Nuevo pedido'"></a> -->
+		<a class="btn btn-primary" 
+			th:href="@{'/pedido/form/' + ${#authentication.name}}"
+			th:text="'Nuevo pedido'"></a>
 
 	</div>
 
-<footer th:replace="/footer :: footer"></footer>
+	<footer th:replace="/footer :: footer"></footer>
 
 </body>
 </html>

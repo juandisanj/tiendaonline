@@ -36,8 +36,10 @@
 					<ul class="nav navbar-nav">
 						<li sec:authorize="hasRole('ROLE_ADMIN')"><a
 							th:href="@{/admin/home}">Administrar</a></li>
-						<li sec:authorize="isAuthenticated()"><a
-							th:href="@{/product/index}">Productos</a></li>
+						<li>
+							<a th:href="@{/product/index}">Productos</a></li>
+						<li>
+							<a th:href="@{/pedido/detail}">Carrito</a></li>
 						<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Salir</a></li>
 
 					</ul>
