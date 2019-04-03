@@ -22,26 +22,16 @@ public class LineaPedidoController {
 	@Autowired
 	private ProductoService productoService;
 	
-	@GetMapping("/addLinea")
-	public String getLineaPedido(@RequestParam("idProducto") Integer idProducto, Model model) {
-		
-		Producto producto = productoService.getById(idProducto);
-		LineaPedido lineaPedido = new LineaPedido();
-		lineaPedido.setProducto(producto);
-		model.addAttribute("lineaPedido", lineaPedido);
-		return "lineapedido/formLineaPedido";
-	}
-	
 	@PostMapping("/addLineaCarrito")
 	public String addLinea(LineaPedido lineaPedido, @SessionAttribute(name="listaCarrito") List<LineaPedido> listaCarrito) {
 		
-		lineaPedido.getImporteLinea();
-		System.out.println("Precio línea: " + lineaPedido.getPrecioLinea());
-		listaCarrito.add(lineaPedido);
+//		if(listaCarrito.contains(lineaPedido)) {
+//			System.out.println("El artículo ya existe en la cesta");
+//		}
 		
-		for(LineaPedido l : listaCarrito) {
-			System.out.println("Producto " + l.getProducto().getNombre());
-		}
+		
+		lineaPedido.getImporteLinea();
+		listaCarrito.add(lineaPedido);
 		
 		return "redirect:/product/index";
 	}

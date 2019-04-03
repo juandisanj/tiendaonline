@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import es.curso.registro.filterModel.PedidoForm;
+import es.curso.registro.controller.dto.PedidoForm;
 import es.curso.registro.model.Role;
 import es.curso.registro.model.User;
 import es.curso.registro.service.PedidoService;

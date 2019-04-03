@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.curso.registro.controller.dto.PedidoForm;
 import es.curso.registro.model.LineaPedido;
 import es.curso.registro.model.Pedido;
 import es.curso.registro.model.User;
@@ -43,7 +44,9 @@ public class PedidoController {
 	private ProductoService productService;
 
 	@GetMapping("/detail")
-	public String detallePedido(@SessionAttribute List<LineaPedido> listaCarrito, Model model) {
+	public String detallePedido(Model model, HttpSession httpSession) {
+		
+		List<LineaPedido> listaCarrito = initListaCarrito(httpSession);
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
@@ -62,18 +65,14 @@ public class PedidoController {
 	@GetMapping("/form/{email}")
 	public String crearPedido(@PathVariable(value = "email") String email,
 			HttpSession httpSession, Model model, RedirectAttributes flash) {
-		List<LineaPedido> listaCarrito = (List<LineaPedido>) httpSession.getAttribute("listaCarrito");
 		
-		if(listaCarrito == null) {
-			listaCarrito = new ArrayList<LineaPedido>();
-			httpSession.setAttribute("listaCarrito", listaCarrito);
-		}
+		List<LineaPedido> listaCarrito = initListaCarrito(httpSession);
 
 		User user = userService.findByEmail(email);
 		
-		Pedido pedido = new Pedido();
-		pedido.setUser(user);
-		pedido.setListaLineas(listaCarrito);
+		PedidoForm pedidoForm = new PedidoForm();
+		pedidoForm.setUser(user);
+		pedidoForm.setListaLineas(listaCarrito);
 
 		if (user == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
@@ -82,9 +81,9 @@ public class PedidoController {
 
 		model.addAttribute("listStatus", statusService.getAll());
 		model.addAttribute("listProducts", productService.getAll());
-		model.addAttribute("pedido", pedido);
+		model.addAttribute("pedidoForm", pedidoForm);
 
-		return "pedido/formPedido";
+		return "pedido/formPedidoCreate";
 	}
 
 	@PostMapping("/form")
@@ -95,6 +94,7 @@ public class PedidoController {
 		}
 		
 		pedido.setListaLineas(listaCarrito);
+		pedido.getTotal();
 		
 		pedidoService.create(pedido);
 		
@@ -110,7 +110,18 @@ public class PedidoController {
 		model.addAttribute("listStatus", statusService.getAll());
 		model.addAttribute("listProducts", productService.getAll());
 		model.addAttribute("pedido", pedido);
-		return "pedido/formPedido";
+		return "pedido/formPedidoUpdate";
+	}
+	
+	private List<LineaPedido> initListaCarrito(HttpSession httpSession){
+		List<LineaPedido> listaCarrito = (List<LineaPedido>) httpSession.getAttribute("listaCarrito");
+		
+		if(listaCarrito == null) {
+			listaCarrito = new ArrayList<LineaPedido>();
+			httpSession.setAttribute("listaCarrito", listaCarrito);
+		}
+		
+		return listaCarrito;
 	}
 
 }
